@@ -7,6 +7,9 @@ import { UserMapper } from "./user_mapper";
 
 export class BookingMapper {
   static toDomain(entity: BookingEntity, property?: Property): Booking {
+    if (!entity.id) {
+      throw new Error("O ID da reserva é obrigatório.");
+    }
     const guest = UserMapper.toDomain(entity.guest);
     const dateRange = new DateRange(entity.startDate, entity.endDate);
 

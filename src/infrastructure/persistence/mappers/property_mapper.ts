@@ -3,6 +3,10 @@ import { PropertyEntity } from "../entities/property_entity";
 
 export class PropertyMapper {
   static toDomain(entity: PropertyEntity): Property {
+    if (!entity.basePricePerNight) {
+      throw new Error("Preço base por noite é obrigatório");
+    }
+
     return new Property(
       entity.id,
       entity.name,

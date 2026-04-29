@@ -12,7 +12,7 @@ describe("BookingService", () => {
   let bookingService: BookingService;
   let fakeBookingRepository: FakeBookingRepository;
   let mockPropertyService: jest.Mocked<PropertyService>;
-  let mockUserService: jest.Mocked<UserService>;
+  let mockUserService: jest.Mocked<UserService>
 
   beforeEach(() => {
     const mockPropertyRepositoy = {} as any;
@@ -186,6 +186,14 @@ describe("BookingService", () => {
   });
 
   it("deve lançar um erro ao tentar cancelar uma reserva inexistente", async () => {
+    const bookingId = "invalid-id";
+
+    await expect(bookingService.cancelBooking(bookingId)).rejects.toThrow(
+      "Reserva não encontrada."
+    );
+  });
+
+  it("deve retornar erro ao tentar cancelar uma reserva que não existe", async () => {
     const bookingId = "invalid-id";
 
     await expect(bookingService.cancelBooking(bookingId)).rejects.toThrow(
